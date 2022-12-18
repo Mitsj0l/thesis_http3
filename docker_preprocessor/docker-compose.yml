@@ -1,0 +1,47 @@
+version: "3"
+services:
+  process_pipeline:
+    command:
+      - node
+    # container_name: process_pipeline
+    entrypoint:
+      - /puppeteer/launch.sh
+      # - docker-entrypoint.sh
+
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - NODE_VERSION=17.5.0
+      - YARN_VERSION=1.22.17
+      - WORKSPACE=/puppeteer
+      - OUTPUT=/puppeteer/output
+      - DATASET=/puppeteer/dataset
+      - VAR1=HELLO
+      - PYTHONUNBUFFERED=1
+      - PYTHONIOENCODING=UTF-8
+    hostname: processing
+    image: processing1:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits: 
+          cpus: "2"
+          memory: 6999M
+        reservations:
+          cpus: "0.5"
+          memory: 1500M
+    ipc: private
+    logging:
+      driver: json-file
+      options: {}
+    mac_address: 02:42:ac:11:00:03
+    tty: true
+    volumes:
+      # - 'D:\dataset_v1\:/puppeteer/output'
+      # - 'F:\dataset_v1_test\:/puppeteer/output'
+      - 'C:\Users\Mitsj0l\Documents\!afstuderen\dataset_input\:/puppeteer/output'
+      # - '/Users/Mitsj0l/Documents/docker_processor/input_raw:/puppeteer/output'
+      - 'C:\Users\Mitsj0l\Documents\!afstuderen\dataset_output\:/puppeteer/dataset'
+      # - '/Users/Mitsj0l/Documents/docker_processor/output_dataset:/puppeteer/dataset'
+    working_dir: /puppeteer
+networks: {}
