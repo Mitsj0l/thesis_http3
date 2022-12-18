@@ -1,0 +1,39 @@
+version: "3"
+services:
+  cranky_banach:
+    # command:
+      # - node
+    # container_name: cranky_banach
+    entrypoint:
+      - /puppeteer/launch.sh
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - NODE_VERSION=17.5.0
+      - YARN_VERSION=1.22.17
+      - WORKSPACE=/puppeteer
+      - OUTPUT=/puppeteer/output
+      - VAR1=HELLO
+    hostname: 76bae872d7fd
+    image: codejsdocker99:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      # delay: 5s
+      # resources:
+      #   limits:
+      #     cpus: '5.50'
+      #     memory: 500M
+      #   reservations:
+      #     cpus: '3.25'
+      #     memory: 300M
+    ipc: private
+    logging:
+      driver: json-file
+      options: {}
+    mac_address: 02:42:ac:11:00:03
+    tty: true
+    volumes:
+      - 'C:\Users\Mitsj0l\Documents\!afstuderen\dataset_input:/puppeteer/output'
+      # - '/Users/Mitsj0l/Documents/docker_downloader/dataset_download:/puppeteer/output'
+    working_dir: /puppeteer
+networks: {}
